@@ -1,59 +1,44 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  return runApp(
-    MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.red,
-        appBar: AppBar(
-          title: Center(child: Text('Dicee')),
-          backgroundColor: Colors.red,
-        ),
-        body: DicePage(),
+void main() => runApp(
+      MaterialApp(
+        home: BallPage(),
       ),
-    ),
-  );
-}
+    );
 
-class DicePage extends StatefulWidget {
+class BallPage extends StatelessWidget {
   @override
-  _State createState() => _State();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.blue,
+      appBar: AppBar(
+        title: Center(child: Text('Ask ME Anything')),
+        backgroundColor: Colors.blue,
+      ),
+      body: Ball(),
+    );
+  }
 }
 
-class _State extends State<DicePage> {
-  int leftDiceNumber = 5;
-  int rightDiceNumber = 1;
-  void changeDiceFace() {
-    setState(() {
-      leftDiceNumber = Random().nextInt(6) + 1;
-      rightDiceNumber = Random().nextInt(6) + 1;
-    });
-  }
+class Ball extends StatefulWidget {
+  @override
+  _BallState createState() => _BallState();
+}
 
+class _BallState extends State<Ball> {
+  int BallNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: FlatButton(
-                onPressed: () {
-                  changeDiceFace();
-                  print('Dice number=$leftDiceNumber');
-                },
-                child: Image.asset('images/dice$leftDiceNumber.png')),
-          ),
-          Expanded(
-            child: FlatButton(
-              onPressed: () {
-                changeDiceFace();
-                print('Dice number=$rightDiceNumber');
-              },
-              child: Image.asset('images/dice$rightDiceNumber.png'),
-            ),
-          ),
-        ],
+      child: FlatButton(
+        onPressed: () {
+          setState(() {
+            BallNumber = Random().nextInt(5) + 1;
+          });
+        },
+        child: Image.asset('images/ball$BallNumber.png'),
       ),
     );
   }
